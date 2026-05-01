@@ -39,7 +39,7 @@ public class DataManager {
         Faculte fs = new Faculte(
                 "Faculté des Sciences",
                 "The Faculty of Sciences at UMBB offers diverse programs in fundamental and applied sciences, fostering research and innovation.",
-                "fs@univ-boumerdes.dz", "+213 24 81 64 15", "Boumerdès", 36.7510, 3.4780, R.drawable.faculte_sciences);
+                "fs@univ-boumerdes.dz", "+213 24 81 64 15", "Boumerdès", 36.7510, 3.4780, R.drawable.img_science);
         fs.addDepartement(new Departement("Informatique", "Study of computational systems, software development, and AI.", "info@univ-boumerdes.dz", "+213 24 81 64 15", R.drawable.img_tech));
         fs.addDepartement(new Departement("Mathématiques", "Exploring abstract structures and mathematical modeling.", "math@univ-boumerdes.dz", "+213 24 81 64 15", R.drawable.img_science));
         fs.addDepartement(new Departement("Physique", "Understanding the fundamental laws of the universe.", "phys@univ-boumerdes.dz", "+213 24 81 64 15", R.drawable.img_science));
