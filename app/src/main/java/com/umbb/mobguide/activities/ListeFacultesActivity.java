@@ -48,7 +48,6 @@ public class ListeFacultesActivity extends AppCompatActivity {
         adapter = new FaculteAdapter(this, filteredFacultes);
         listView.setAdapter(adapter);
 
-        // Recherche en temps réel
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -57,7 +56,6 @@ public class ListeFacultesActivity extends AppCompatActivity {
             @Override public void afterTextChanged(Editable s) {}
         });
 
-        // Clic sur une faculté
         listView.setOnItemClickListener((parent, view, position, id) -> {
             Faculte selected = filteredFacultes.get(position);
             int indexInAll = allFacultes.indexOf(selected);

@@ -28,7 +28,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                 if (id == R.id.nav_home) {
                     intent = new Intent(this, MainActivity.class);
                 } else if (id == R.id.nav_universities) {
-                    // Since MainActivity shows the university list, we can point there or to a specific list activity
                     intent = new Intent(this, MainActivity.class);
                 } else if (id == R.id.nav_search) {
                     intent = new Intent(this, SearchActivity.class);

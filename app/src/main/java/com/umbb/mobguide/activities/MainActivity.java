@@ -16,10 +16,8 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Setup Bottom Navigation from BaseActivity
         setupBottomNavigation(R.id.nav_home);
 
-        // Initialize University List
         RecyclerView rvUniversities = findViewById(R.id.rvUniversities);
         rvUniversities.setLayoutManager(new LinearLayoutManager(this));
 

@@ -34,14 +34,12 @@ public class DataManager {
     }
 
     private void initData() {
-        // Create UMBB University
-        Universite umbb = new Universite(1, "UMBB", "Université M'Hamed Bougara de Boumerdès", "Boumerdès", R.drawable.img_umbb);
+        Universite umbb = new Universite(1, "UMBB", "Université M'Hamed Bougara de Boumerdès", "Boumerdès", R.drawable.logo);
 
-        // 1. Faculté des Sciences (FS)
         Faculte fs = new Faculte(
                 "Faculté des Sciences",
                 "The Faculty of Sciences at UMBB offers diverse programs in fundamental and applied sciences, fostering research and innovation.",
-                "fs@univ-boumerdes.dz", "+213 24 81 64 15", "Boumerdès", 36.7510, 3.4780, R.drawable.img_science);
+                "fs@univ-boumerdes.dz", "+213 24 81 64 15", "Boumerdès", 36.7510, 3.4780, R.drawable.faculte_sciences);
         fs.addDepartement(new Departement("Informatique", "Study of computational systems, software development, and AI.", "info@univ-boumerdes.dz", "+213 24 81 64 15", R.drawable.img_tech));
         fs.addDepartement(new Departement("Mathématiques", "Exploring abstract structures and mathematical modeling.", "math@univ-boumerdes.dz", "+213 24 81 64 15", R.drawable.img_science));
         fs.addDepartement(new Departement("Physique", "Understanding the fundamental laws of the universe.", "phys@univ-boumerdes.dz", "+213 24 81 64 15", R.drawable.img_science));
@@ -49,7 +47,6 @@ public class DataManager {
         fs.addDepartement(new Departement("SNV", "Sciences of Nature and Life, focusing on biology and environment.", "snv@univ-boumerdes.dz", "+213 24 81 64 15", R.drawable.img_science));
         facultes.add(fs);
 
-        // 2. Faculté des Sciences de l'Ingénieur (FSI)
         Faculte fsi = new Faculte(
                 "Faculté des Sciences de l'Ingénieur",
                 "FSI is dedicated to engineering excellence, training professionals in various technical domains.",
@@ -61,17 +58,15 @@ public class DataManager {
         fsi.addDepartement(new Departement("Architecture", "Integrating art and engineering in building design.", "archi@univ-boumerdes.dz", "+213 24 81 64 10", R.drawable.img_tech));
         facultes.add(fsi);
 
-        // 3. Faculté des Hydrocarbures et de la Chimie (FHC)
         Faculte fhc = new Faculte(
                 "Faculté des Hydrocarbures et de la Chimie",
                 "A leading faculty in Africa for oil and gas education and research.",
-                "fhc@univ-boumerdes.dz", "+213 24 81 64 30", "Boumerdès", 36.7498, 3.4770, R.drawable.img_umbb);
+                "fhc@univ-boumerdes.dz", "+213 24 81 64 30", "Boumerdès", 36.7498, 3.4770, R.drawable.faculte_hydrocarbures_chimie);
         fhc.addDepartement(new Departement("Génie des Hydrocarbures", "Exploration, drilling, and production technologies.", "hydro@univ-boumerdes.dz", "+213 24 81 64 30", R.drawable.img_umbb));
         fhc.addDepartement(new Departement("Génie Chimique", "Refining and petrochemical industry processes.", "chimique@univ-boumerdes.dz", "+213 24 81 64 30", R.drawable.img_umbb));
         fhc.addDepartement(new Departement("Génie des Réservoirs", "Analysis and management of underground oil and gas reservoirs.", "reservoirs@univ-boumerdes.dz", "+213 24 81 64 30", R.drawable.img_umbb));
         facultes.add(fhc);
 
-        // 4. Faculté des Sciences Economiques (FSECSG)
         Faculte fsecsg = new Faculte(
                 "Faculté des Sciences Economiques",
                 "Preparing future leaders in economics, business, and management.",
@@ -81,18 +76,16 @@ public class DataManager {
         fsecsg.addDepartement(new Departement("Sciences de Gestion", "Management, human resources, and organizational behavior.", "gestion@univ-boumerdes.dz", "+213 24 81 64 40", R.drawable.img_alger1));
         facultes.add(fsecsg);
 
-        // 5. Faculté de Technologie (FT)
         Faculte ft = new Faculte(
                 "Faculté de Technologie",
                 "Focused on advanced technologies, automation, and telecommunications.",
-                "ft@univ-boumerdes.dz", "+213 24 81 64 50", "Boumerdès", 36.7520, 3.4790, R.drawable.img_tech);
+                "ft@univ-boumerdes.dz", "+213 24 81 64 50", "Boumerdès", 36.7520, 3.4790, R.drawable.faculte_technologie);
         ft.addDepartement(new Departement("Génie Industriel", "Optimization of complex processes and systems.", "industriel@univ-boumerdes.dz", "+213 24 81 64 50", R.drawable.img_tech));
         ft.addDepartement(new Departement("Electronique", "Advanced electronic systems and circuit design.", "elec@univ-boumerdes.dz", "+213 24 81 64 50", R.drawable.img_tech));
         ft.addDepartement(new Departement("Télécommunications", "Network infrastructure and wireless communication.", "telecom@univ-boumerdes.dz", "+213 24 81 64 50", R.drawable.img_tech));
         ft.addDepartement(new Departement("Automatique", "Control systems and robotics.", "autom@univ-boumerdes.dz", "+213 24 81 64 50", R.drawable.img_tech));
         facultes.add(ft);
 
-        // 6. Faculté de Droit et Sciences Politiques (FDSP)
         Faculte fdsp = new Faculte(
                 "Faculté de Droit",
                 "Training experts in law and political sciences.",
@@ -102,7 +95,6 @@ public class DataManager {
         fdsp.addDepartement(new Departement("Sciences Politiques", "Analysis of political systems and governance.", "po@univ-boumerdes.dz", "+213 24 81 64 60", R.drawable.img_alger1));
         facultes.add(fdsp);
 
-        // Add all faculties to UMBB
         for (Faculte f : facultes) {
             umbb.addFaculte(f);
         }

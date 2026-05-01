@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 public class Department implements Serializable {
     private String name;
-    private String specialties; // e.g., "Licence / Master / Doctorat"
+    private String specialties;
     private String contactEmail;
     private String contactPhone;
-    private String locationUrl; // Google Maps URL or coordinates
+    private String locationUrl;
 
     public Department(String name, String specialties, String contactEmail, String contactPhone, String locationUrl) {
         this.name = name;

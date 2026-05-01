@@ -59,14 +59,12 @@ public class DetailFaculteActivity extends AppCompatActivity {
         RecyclerView rvDepartments = findViewById(R.id.rvDepartments);
         rvDepartments.setLayoutManager(new LinearLayoutManager(this));
         
-        // Map Departement to Department for the adapter
         ArrayList<Department> departments = new ArrayList<>();
         for (Departement d : faculte.getDepartements()) {
             departments.add(new Department(d.getNom(), "Spécialités: " + d.getSpecialites().size(), d.getEmail(), d.getTelephone(), ""));
         }
         
         rvDepartments.setAdapter(new DepartmentAdapter(this, departments, department -> {
-            // Handle click if needed, or leave empty
             Toast.makeText(this, department.getName(), Toast.LENGTH_SHORT).show();
         }));
 

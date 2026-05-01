@@ -53,7 +53,6 @@ public class DetailDepartementActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.tvDeptPhone)).setText(departement.getTelephone());
 
         ChipGroup cgSpecialties = findViewById(R.id.cgSpecialties);
-        // Specialities are currently empty in DataManager, but here is how to add them
         if (departement.getSpecialites().isEmpty()) {
             addChip(cgSpecialties, "Licence");
             addChip(cgSpecialties, "Master");
