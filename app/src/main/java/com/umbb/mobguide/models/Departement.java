@@ -7,6 +7,7 @@ public class Departement {
     private String description;
     private String email;
     private String telephone;
+    private String imageUrl;
     private int imageResId;
     private ArrayList<String> specialites;
 
@@ -19,10 +20,20 @@ public class Departement {
         this.specialites = new ArrayList<>();
     }
 
+    public Departement(String nom, String description, String email, String telephone, String imageUrl) {
+        this.nom = nom;
+        this.description = description;
+        this.email = email;
+        this.telephone = telephone;
+        this.imageUrl = imageUrl;
+        this.specialites = new ArrayList<>();
+    }
+
     public String getNom() { return nom; }
     public String getDescription() { return description; }
     public String getEmail() { return email; }
     public String getTelephone() { return telephone; }
+    public String getImageUrl() { return imageUrl; }
     public int getImageResId() { return imageResId; }
     public ArrayList<String> getSpecialites() { return specialites; }
 

@@ -8,6 +8,7 @@ public class University implements Serializable {
     private String name;
     private String city;
     private String description;
+    private String imageUrl;
     private int imageResId;
     private ArrayList<Faculty> faculties;
 
@@ -20,10 +21,20 @@ public class University implements Serializable {
         this.faculties = faculties;
     }
 
+    public University(int id, String name, String city, String description, String imageUrl, ArrayList<Faculty> faculties) {
+        this.id = id;
+        this.name = name;
+        this.city = city;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.faculties = faculties;
+    }
+
     public int getId() { return id; }
     public String getName() { return name; }
     public String getCity() { return city; }
     public String getDescription() { return description; }
+    public String getImageUrl() { return imageUrl; }
     public int getImageResId() { return imageResId; }
     public ArrayList<Faculty> getFaculties() { return faculties; }
 }

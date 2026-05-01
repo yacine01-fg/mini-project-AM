@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.umbb.mobguide.R;
 import com.umbb.mobguide.models.Faculte;
 
@@ -40,7 +41,11 @@ public class FaculteAdapter extends ArrayAdapter<Faculte> {
         int nbDepts = f.getDepartements().size();
         tvDepts.setText(nbDepts + " département" + (nbDepts > 1 ? "s" : ""));
 
-        imgFaculte.setImageResource(f.getImageResId());
+        if (f.getImageUrl() != null && !f.getImageUrl().isEmpty()) {
+            Glide.with(context).load(f.getImageUrl()).centerCrop().into(imgFaculte);
+        } else {
+            imgFaculte.setImageResource(f.getImageResId());
+        }
 
         return convertView;
     }

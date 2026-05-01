@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -46,7 +47,11 @@ public class DetailDepartementActivity extends AppCompatActivity {
         collapsingToolbar.setTitle(departement.getNom());
 
         ImageView imgHeader = findViewById(R.id.imgDeptHeader);
-        imgHeader.setImageResource(departement.getImageResId());
+        if (departement.getImageUrl() != null && !departement.getImageUrl().isEmpty()) {
+            Glide.with(this).load(departement.getImageUrl()).centerCrop().into(imgHeader);
+        } else {
+            imgHeader.setImageResource(departement.getImageResId());
+        }
 
         ((TextView) findViewById(R.id.tvDeptDescription)).setText(departement.getDescription());
         ((TextView) findViewById(R.id.tvDeptEmail)).setText(departement.getEmail());

@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.umbb.mobguide.R;
 import com.umbb.mobguide.adapters.DepartmentAdapter;
@@ -50,7 +51,11 @@ public class DetailFaculteActivity extends AppCompatActivity {
         collapsingToolbar.setTitle(faculte.getNom());
 
         ImageView imgHeader = findViewById(R.id.imgFacultyHeader);
-        imgHeader.setImageResource(faculte.getImageResId());
+        if (faculte.getImageUrl() != null && !faculte.getImageUrl().isEmpty()) {
+            Glide.with(this).load(faculte.getImageUrl()).centerCrop().into(imgHeader);
+        } else {
+            imgHeader.setImageResource(faculte.getImageResId());
+        }
 
         ((TextView) findViewById(R.id.tvFacultyDescription)).setText(faculte.getDescription());
         ((TextView) findViewById(R.id.tvFacultyEmail)).setText(faculte.getEmail());
