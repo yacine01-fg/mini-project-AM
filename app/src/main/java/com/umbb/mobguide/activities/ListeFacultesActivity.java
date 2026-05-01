@@ -13,6 +13,7 @@ import com.umbb.mobguide.R;
 import com.umbb.mobguide.adapters.FaculteAdapter;
 import com.umbb.mobguide.models.DataManager;
 import com.umbb.mobguide.models.Faculte;
+import com.umbb.mobguide.models.Universite;
 
 import java.util.ArrayList;
 
@@ -23,21 +24,25 @@ public class ListeFacultesActivity extends AppCompatActivity {
     private ArrayList<Faculte> allFacultes;
     private ArrayList<Faculte> filteredFacultes;
     private EditText etSearch;
+    private int universiteId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste_facultes);
 
+        universiteId = getIntent().getIntExtra("universite_id", 1);
+        Universite universite = DataManager.getInstance().getUniversiteById(universiteId);
+
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Facultés – UMBB");
+            getSupportActionBar().setTitle("Facultés – " + universite.getNom());
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
         listView = findViewById(R.id.listViewFacultes);
         etSearch = findViewById(R.id.etSearch);
 
-        allFacultes = DataManager.getInstance().getFacultes();
+        allFacultes = universite.getFacultes();
         filteredFacultes = new ArrayList<>(allFacultes);
 
         adapter = new FaculteAdapter(this, filteredFacultes);
@@ -57,6 +62,7 @@ public class ListeFacultesActivity extends AppCompatActivity {
             Faculte selected = filteredFacultes.get(position);
             int indexInAll = allFacultes.indexOf(selected);
             Intent intent = new Intent(ListeFacultesActivity.this, DetailFaculteActivity.class);
+            intent.putExtra("universite_id", universiteId);
             intent.putExtra("faculte_index", indexInAll);
             startActivity(intent);
         });

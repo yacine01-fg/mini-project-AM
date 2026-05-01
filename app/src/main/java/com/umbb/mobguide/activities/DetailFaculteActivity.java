@@ -4,16 +4,23 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.umbb.mobguide.R;
-import com.umbb.mobguide.adapters.DepartementAdapter;
+import com.umbb.mobguide.adapters.DepartmentAdapter;
 import com.umbb.mobguide.models.DataManager;
-import com.umbb.mobguide.models.Departement;
+import com.umbb.mobguide.models.Department;
 import com.umbb.mobguide.models.Faculte;
+import com.umbb.mobguide.models.Departement;
+import java.util.ArrayList;
 
 public class DetailFaculteActivity extends AppCompatActivity {
 
@@ -24,71 +31,71 @@ public class DetailFaculteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_faculte);
 
-        int index = getIntent().getIntExtra("faculte_index", 0);
-        faculte = DataManager.getInstance().getFacultes().get(index);
+        String facultyName = getIntent().getStringExtra("faculty_name");
+        faculte = findFacultyByName(facultyName);
 
+        if (faculte == null) {
+            Toast.makeText(this, "Faculty not found", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(faculte.getNom());
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // Remplissage des TextViews
-        ((TextView) findViewById(R.id.tvDetailNom)).setText(faculte.getNom());
-        ((TextView) findViewById(R.id.tvDetailDescription)).setText(faculte.getDescription());
-        ((TextView) findViewById(R.id.tvDetailEmail)).setText(faculte.getEmail());
-        ((TextView) findViewById(R.id.tvDetailTel)).setText(faculte.getTelephone());
-        ((TextView) findViewById(R.id.tvDetailAdresse)).setText(faculte.getAdresse());
+        CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsingToolbar);
+        collapsingToolbar.setTitle(faculte.getNom());
 
-        // ListView des départements
-        ListView listDepts = findViewById(R.id.listViewDepartements);
-        DepartementAdapter adapter = new DepartementAdapter(this, faculte.getDepartements());
-        listDepts.setAdapter(adapter);
+        ImageView imgHeader = findViewById(R.id.imgFacultyHeader);
+        imgHeader.setImageResource(faculte.getImageResId());
 
-        listDepts.setOnItemClickListener((parent, view, position, id) -> {
-            Intent intent = new Intent(this, DetailDepartementActivity.class);
-            intent.putExtra("faculte_index", index);
-            intent.putExtra("dept_index", position);
-            startActivity(intent);
-        });
+        ((TextView) findViewById(R.id.tvFacultyDescription)).setText(faculte.getDescription());
+        ((TextView) findViewById(R.id.tvFacultyEmail)).setText(faculte.getEmail());
+        ((TextView) findViewById(R.id.tvFacultyPhone)).setText(faculte.getTelephone());
 
-        // Boutons de contact
-        Button btnEmail = findViewById(R.id.btnEmail);
-        Button btnTel   = findViewById(R.id.btnAppel);
-        Button btnSms   = findViewById(R.id.btnSms);
-        Button btnMaps  = findViewById(R.id.btnMaps);
+        RecyclerView rvDepartments = findViewById(R.id.rvDepartments);
+        rvDepartments.setLayoutManager(new LinearLayoutManager(this));
+        
+        // Map Departement to Department for the adapter
+        ArrayList<Department> departments = new ArrayList<>();
+        for (Departement d : faculte.getDepartements()) {
+            departments.add(new Department(d.getNom(), "Spécialités: " + d.getSpecialites().size(), d.getEmail(), d.getTelephone(), ""));
+        }
+        
+        rvDepartments.setAdapter(new DepartmentAdapter(this, departments, department -> {
+            // Handle click if needed, or leave empty
+            Toast.makeText(this, department.getName(), Toast.LENGTH_SHORT).show();
+        }));
 
-        btnEmail.setOnClickListener(v -> {
-            Intent i = new Intent(Intent.ACTION_SENDTO);
-            i.setData(Uri.parse("mailto:" + faculte.getEmail()));
-            i.putExtra(Intent.EXTRA_SUBJECT, "Contact – " + faculte.getNom());
-            startActivity(Intent.createChooser(i, "Envoyer un e-mail"));
-        });
+        Button btnMap = findViewById(R.id.btnMap);
+        Button btnContact = findViewById(R.id.btnContact);
 
-        btnTel.setOnClickListener(v -> {
-            Intent i = new Intent(Intent.ACTION_DIAL);
-            i.setData(Uri.parse("tel:" + faculte.getTelephone()));
-            startActivity(i);
-        });
+        btnMap.setOnClickListener(v -> openMap());
+        btnContact.setOnClickListener(v -> sendEmail());
+    }
 
-        btnSms.setOnClickListener(v -> {
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse("sms:" + faculte.getTelephone()));
-            startActivity(i);
-        });
+    private Faculte findFacultyByName(String name) {
+        for (Faculte f : DataManager.getInstance().getFacultes()) {
+            if (f.getNom().equals(name)) return f;
+        }
+        return null;
+    }
 
-        btnMaps.setOnClickListener(v -> {
-            String uri = "geo:" + faculte.getLatitude() + "," + faculte.getLongitude()
-                    + "?q=" + Uri.encode(faculte.getNom() + ", Boumerdès");
-            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-            i.setPackage("com.google.android.apps.maps");
-            if (i.resolveActivity(getPackageManager()) != null) {
-                startActivity(i);
-            } else {
-                // Fallback navigateur
-                String url = "https://maps.google.com/?q=" + faculte.getLatitude() + "," + faculte.getLongitude();
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-            }
-        });
+    private void openMap() {
+        String uri = "geo:" + faculte.getLatitude() + "," + faculte.getLongitude() + "?q=" + Uri.encode(faculte.getNom());
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        intent.setPackage("com.google.android.apps.maps");
+        startActivity(intent);
+    }
+
+    private void sendEmail() {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:" + faculte.getEmail()));
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Inquiry: " + faculte.getNom());
+        startActivity(Intent.createChooser(intent, "Send Email"));
     }
 
     @Override

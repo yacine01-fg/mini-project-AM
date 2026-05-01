@@ -1,5 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Material 3 Palette -->
+    <color name="primary">#0D1B4B</color>
+    <color name="onPrimary">#FFFFFF</color>
+    <color name="primaryContainer">#DDE1FF</color>
+    <color name="onPrimaryContainer">#001453</color>
+
+    <color name="secondary">#1A3A7C</color>
+    <color name="onSecondary">#FFFFFF</color>
+    <color name="secondaryContainer">#D7E2FF</color>
+    <color name="onSecondaryContainer">#001B3F</color>
+
+    <color name="tertiary">#FFC107</color>
+    <color name="onTertiary">#000000</color>
+    <color name="tertiaryContainer">#FFE08D</color>
+    <color name="onTertiaryContainer">#241A00</color>
+
+    <color name="background">#FDFBFF</color>
+    <color name="onBackground">#1B1B1F</color>
+    <color name="surface">#FDFBFF</color>
+    <color name="onSurface">#1B1B1F</color>
+    <color name="surfaceVariant">#E1E2EC</color>
+    <color name="onSurfaceVariant">#44474E</color>
+
+    <color name="outline">#75777F</color>
+
+    <!-- App Specific -->
+    <color name="hero_gradient_start">#0D1B4B</color>
+    <color name="hero_gradient_end">#1A3A7C</color>
+    <color name="card_bg">#FFFFFF</color>
+    <color name="text_grey">#757575</color>
+
+    <color name="launcher_background">#0D1B4B</color>
+
+    <!-- Legacy/Theme compatible colors -->
+    <color name="primary_brand">#0D1B4B</color>
+    <color name="primary_dark">#0A1435</color>
+    <color name="white">#FFFFFF</color>
+    <color name="accent_brand">#FFC107</color>
+    <color name="background_soft">#FDFBFF</color>
+
+    <!-- Additional missing colors -->
+    <color name="overlay_gradient_start">#66000000</color>
+    <color name="overlay_gradient_end">#00000000</color>
+    <color name="gray_light">#E0E0E0</color>
+    <color name="black">#000000</color>
+    <color name="accent">#FFC107</color>
+    <color name="gray_text">#757575</color>
+    <color name="text_main">#212121</color>
+    <color name="text_secondary">#757575</color>
 </resources>

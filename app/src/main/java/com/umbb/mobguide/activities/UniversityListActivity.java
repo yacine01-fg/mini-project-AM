@@ -3,23 +3,26 @@ package com.umbb.mobguide.activities;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.umbb.mobguide.R;
 import com.umbb.mobguide.adapters.UniversityAdapter;
 import com.umbb.mobguide.models.DataRepository;
 import com.umbb.mobguide.models.University;
 import java.util.ArrayList;
 
-public class MainActivity extends BaseActivity {
+public class UniversityListActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_university_list);
 
-        // Setup Bottom Navigation from BaseActivity
-        setupBottomNavigation(R.id.nav_home);
+        MaterialToolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Nos Universités");
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
-        // Initialize University List
+        setupBottomNavigation(R.id.nav_universities);
+
         RecyclerView rvUniversities = findViewById(R.id.rvUniversities);
         rvUniversities.setLayoutManager(new LinearLayoutManager(this));
 

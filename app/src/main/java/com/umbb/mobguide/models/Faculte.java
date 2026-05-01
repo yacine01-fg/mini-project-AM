@@ -10,9 +10,10 @@ public class Faculte {
     private String adresse;
     private double latitude;
     private double longitude;
+    private int imageResId;
     private ArrayList<Departement> departements;
 
-    public Faculte(String nom, String description, String email, String telephone, String adresse, double latitude, double longitude) {
+    public Faculte(String nom, String description, String email, String telephone, String adresse, double latitude, double longitude, int imageResId) {
         this.nom = nom;
         this.description = description;
         this.email = email;
@@ -20,6 +21,7 @@ public class Faculte {
         this.adresse = adresse;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.imageResId = imageResId;
         this.departements = new ArrayList<>();
     }
 
@@ -30,6 +32,7 @@ public class Faculte {
     public String getAdresse() { return adresse; }
     public double getLatitude() { return latitude; }
     public double getLongitude() { return longitude; }
+    public int getImageResId() { return imageResId; }
     public ArrayList<Departement> getDepartements() { return departements; }
 
     public void addDepartement(Departement d) {

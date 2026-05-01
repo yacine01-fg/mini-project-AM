@@ -3,16 +3,20 @@ package com.umbb.mobguide.activities;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 import com.umbb.mobguide.R;
 import com.umbb.mobguide.models.DataManager;
 import com.umbb.mobguide.models.Departement;
+import com.umbb.mobguide.models.Faculte;
 
 public class DetailDepartementActivity extends AppCompatActivity {
 
@@ -23,49 +27,65 @@ public class DetailDepartementActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_departement);
 
-        int fIndex = getIntent().getIntExtra("faculte_index", 0);
-        int dIndex = getIntent().getIntExtra("dept_index", 0);
-        departement = DataManager.getInstance().getFacultes().get(fIndex).getDepartements().get(dIndex);
+        String deptName = getIntent().getStringExtra("dept_name");
+        departement = findDepartmentByName(deptName);
 
+        if (departement == null) {
+            Toast.makeText(this, "Department not found", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(departement.getNom());
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        ((TextView) findViewById(R.id.tvDeptDetailNom)).setText(departement.getNom());
-        ((TextView) findViewById(R.id.tvDeptDetailDesc)).setText(departement.getDescription());
-        ((TextView) findViewById(R.id.tvDeptDetailEmail)).setText(departement.getEmail());
-        ((TextView) findViewById(R.id.tvDeptDetailTel)).setText(departement.getTelephone());
+        CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsingToolbar);
+        collapsingToolbar.setTitle(departement.getNom());
 
-        // Liste des spécialités
-        ListView listSpec = findViewById(R.id.listViewSpecialites);
-        ArrayAdapter<String> specAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, departement.getSpecialites());
-        listSpec.setAdapter(specAdapter);
+        ImageView imgHeader = findViewById(R.id.imgDeptHeader);
+        imgHeader.setImageResource(departement.getImageResId());
 
-        // Boutons contact
-        Button btnEmail = findViewById(R.id.btnDeptEmail);
-        Button btnTel   = findViewById(R.id.btnDeptAppel);
-        Button btnSms   = findViewById(R.id.btnDeptSms);
+        ((TextView) findViewById(R.id.tvDeptDescription)).setText(departement.getDescription());
+        ((TextView) findViewById(R.id.tvDeptEmail)).setText(departement.getEmail());
+        ((TextView) findViewById(R.id.tvDeptPhone)).setText(departement.getTelephone());
 
-        btnEmail.setOnClickListener(v -> {
-            Intent i = new Intent(Intent.ACTION_SENDTO);
-            i.setData(Uri.parse("mailto:" + departement.getEmail()));
-            i.putExtra(Intent.EXTRA_SUBJECT, "Contact – " + departement.getNom());
-            startActivity(Intent.createChooser(i, "Envoyer un e-mail"));
+        ChipGroup cgSpecialties = findViewById(R.id.cgSpecialties);
+        // Specialities are currently empty in DataManager, but here is how to add them
+        if (departement.getSpecialites().isEmpty()) {
+            addChip(cgSpecialties, "Licence");
+            addChip(cgSpecialties, "Master");
+            addChip(cgSpecialties, "Doctorat");
+        } else {
+            for (String spec : departement.getSpecialites()) {
+                addChip(cgSpecialties, spec);
+            }
+        }
+
+        findViewById(R.id.btnContactDept).setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + departement.getTelephone()));
+            startActivity(intent);
         });
+    }
 
-        btnTel.setOnClickListener(v -> {
-            Intent i = new Intent(Intent.ACTION_DIAL);
-            i.setData(Uri.parse("tel:" + departement.getTelephone()));
-            startActivity(i);
-        });
+    private void addChip(ChipGroup group, String text) {
+        Chip chip = new Chip(this);
+        chip.setText(text);
+        chip.setCheckable(false);
+        chip.setClickable(false);
+        group.addView(chip);
+    }
 
-        btnSms.setOnClickListener(v -> {
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse("sms:" + departement.getTelephone()));
-            startActivity(i);
-        });
+    private Departement findDepartmentByName(String name) {
+        for (Faculte f : DataManager.getInstance().getFacultes()) {
+            for (Departement d : f.getDepartements()) {
+                if (d.getNom().equals(name)) return d;
+            }
+        }
+        return null;
     }
 
     @Override

@@ -1,3 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MobGuide UMBB</string>
+    <string name="app_name">UMBB MobGuide</string>
+    <string name="app_subtitle">Votre guide universitaire numérique</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_home">Accueil</string>
+    <string name="nav_universities">Universités</string>
+    <string name="nav_search">Recherche</string>
+    <string name="nav_contact">Contact</string>
+
+    <!-- Sections -->
+    <string name="section_universities">Nos Universités</string>
+    <string name="view_faculties">Voir les facultés →</string>
+    <string name="departments_count">%1$d départements</string>
+
+    <!-- Contact & Search -->
+    <string name="search_hint">Rechercher une université ou faculté...</string>
+    <string name="contact_title">Contactez-nous</string>
+    <string name="contact_desc">Pour toute assistance ou suggestion, n\'hésitez pas à nous contacter.</string>
+    <string name="call_us">Appeler</string>
+    <string name="send_email">Email</string>
+    <string name="visit_website">Site Web</string>
+
+    <!-- Department Details -->
+    <string name="specialties">Spécialités :</string>
+    <string name="localize">Localiser</string>
+
+    <!-- Additional missing strings -->
+    <string name="map">Carte</string>
+    <string name="contact">Contact</string>
+    <string name="departments">Départements</string>
 </resources>
