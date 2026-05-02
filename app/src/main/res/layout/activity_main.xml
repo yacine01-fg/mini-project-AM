@@ -33,7 +33,7 @@
                         android:id="@+id/img_logo"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:src="@drawable/ic_app_logo"
+                        android:src="@drawable/logo_mobguide"
                         android:contentDescription="UMBB MobGuide Logo" />
 
                     <TextView

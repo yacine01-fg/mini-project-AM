@@ -7,9 +7,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_app_logo"
+        android:icon="@drawable/logo_mobguide"
         android:label="UMBB MobGuide"
-        android:roundIcon="@drawable/ic_app_logo"
+        android:roundIcon="@drawable/logo_mobguide"
         android:supportsRtl="true"
         android:theme="@style/Theme.MobGuideUMBB">
 
